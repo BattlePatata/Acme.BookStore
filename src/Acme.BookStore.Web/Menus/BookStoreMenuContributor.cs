@@ -2,6 +2,7 @@
 using Acme.BookStore.Localization;
 using Acme.BookStore.MultiTenancy;
 using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
@@ -43,7 +44,13 @@ public class BookStoreMenuContributor : IMenuContributor {
                     l["Menu:Books"],
                     url: "/Books"
                 ).RequirePermissions(BookStorePermissions.Books.Default)
-            )
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "BookStore.Authors",
+                    l["Menu:Authors"],
+                    url: "/Authors"
+                ).RequirePermissions(BookStorePermissions.Authors.Default)
+            ) 
         );
 
         if (MultiTenancyConsts.IsEnabled) {
